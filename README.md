@@ -1,6 +1,6 @@
 ## Goal
 
-Wanted to test out the Omdb API
+Implemented a tool to find movies/tv shows fast, as well as random lookup
 
 ## Usage
 
