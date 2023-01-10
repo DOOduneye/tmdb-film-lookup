@@ -16,9 +16,6 @@ const SearchComponent = () => {
         ).then(data => {
             const randomFilm = data[Math.floor(Math.random() * data.length)];
             makeSearch(randomFilm.name, 1);
-            // while (results === null) {
-            //     makeSearch(randomFilm.name);
-            // }
         });
     }
 

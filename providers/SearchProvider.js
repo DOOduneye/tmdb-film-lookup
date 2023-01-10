@@ -7,6 +7,9 @@ const SearchProvider = ({ children }) => {
 
     const [search, setSearch] = useState(sessionSearch || "");
     const [results, setResults] = useState(null);
+    const [similar, setSimilar] = useState(null);
+    const [credits, setCredits] = useState(null);
+    const [providers, setProviders] = useState(null);
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
@@ -27,11 +30,33 @@ const SearchProvider = ({ children }) => {
                 }
                 sessionStorage.setItem("search", search);
             });
+
+        if (param && limit) {
+            fetch(`https://api.themoviedb.org/3/movie/${results[0].id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY_TMDB_V3}&language=en-US&page=1`)
+            .then((res) => res.json())      
+            .then((data) =>    
+                setSimilar(data)
+            );
+
+            fetch(`https://api.themoviedb.org/3/movie/${results[0].id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY_TMDB_V3}&language=en-US`)
+            .then((res) => res.json())
+            .then((data) =>
+                setCredits(data)
+            );
+
+            fetch(`https://api.themoviedb.org/3/movie/${results[0].id}/watch/providers?api_key=${process.env.NEXT_PUBLIC_API_KEY_TMDB_V3}&language=en-US`)
+            .then((res) => res.json())
+            .then((data) =>
+                console.log(providers)
+            );
+
+
+        }
     };
 
     
     return (
-        <SearchContext.Provider value={{ search, setSearch, handleSearch, makeSearch, results, setResults }}>
+        <SearchContext.Provider value={{ search, setSearch, handleSearch, makeSearch, results, setResults, similar, credits, providers }}>
             {children}
         </SearchContext.Provider>
     );
