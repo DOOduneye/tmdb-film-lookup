@@ -9,7 +9,7 @@ export default function Document() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <body className="h-fit w-fit">
+            <body className="h-fit w-full">
                 <Main />
                 <NextScript />
             </body>
